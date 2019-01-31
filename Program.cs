@@ -8,12 +8,12 @@ namespace ConsoleApplication91
 {
     class Program
     {
-
         static List<string> listString = new List<string>();
 
         static void Main(string[] args)
         {
-            DirSearch(@"C:\Users\dave.gan\Downloads");
+            DirSearch(@"C:\");
+            DirSearch(@"D:\");
 
             TextWriter tw = new StreamWriter(@"C:\Users\dave.gan\Desktop\output.txt");
 
@@ -27,22 +27,24 @@ namespace ConsoleApplication91
 
         static void DirSearch(string sDir)
         {
-            try
+            string[] Dirs;
+            try { Dirs = Directory.GetDirectories(sDir); }
+            catch (System.Exception excpt) { listString.Add("Error1 occured: " + excpt.Message); return; }
+
+
+            foreach (string d in Dirs)
             {
-                foreach (string d in Directory.GetDirectories(sDir))
+                string[] Files;
+                try { Files = Directory.GetFiles(d); }
+                catch (System.Exception excpt) { listString.Add("Error2 occured: " + excpt.Message); continue; }
+
+                foreach (string f in Files)
                 {
-                    foreach (string f in Directory.GetFiles(d))
-                    {
-                        listString.Add(f);
-                        if (nEvery++ % 200 ==0)
-                            Console.Write("*");
-                    }
-                    DirSearch(d);
+                    listString.Add(f);
+                    if (nEvery++ % 200 == 0)
+                        Console.Write("*");
                 }
-            }
-            catch (System.Exception excpt)
-            {
-                listString.Add("Error occured: " + excpt.Message);
+                DirSearch(d);
             }
         }
     }
