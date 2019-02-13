@@ -27,39 +27,38 @@ namespace ConsoleApplication91
             tw.Close();
 
 
-
-            watch.Stop(); Console.WriteLine(watch.ElapsedMilliseconds); Console.Read();
+            watch.Stop(); Console.WriteLine(watch.ElapsedMilliseconds/1000); Console.Read();
         }
 
         static int nEvery = 0;
         static void DirSearch(string sDir)
         {
+            string f_;
             string[] Dirs;
             try { Dirs = Directory.GetDirectories(sDir); }
-            catch (System.Exception excpt) { listString.Add("Error1 occured: " + excpt.Message); return; }
+            catch /*(System.Exception excpt)*/ { /*listString.Add("Error1 occured: " + excpt.Message);*/ return; }
 
 
             foreach (string d in Dirs)
             {
 
-                string[] Files;
-                try { Files = Directory.GetFiles(d); }
-                catch (System.Exception excpt) { listString.Add("Error2 occured: " + excpt.Message); continue; }
+                FileInfo[] Files;
+                try { var dir = new DirectoryInfo(d); Files = dir.GetFiles(); }
+                catch /*(System.Exception excpt)*/ { /*listString.Add("Error2 occured: " + excpt.Message);*/ continue; }
 
+                int 資料夾hashcode = d.GetHashCode();
+                listString.Add("【】" + d + "\t" + 資料夾hashcode + "\t" + "0" + "\t" + "0");
 
-                bool first = true;
-                foreach (string f in Files)
+                foreach (FileInfo f in Files)
                 {
-                    if (first)
-                    {
-                        listString.Add(f);
-                        first=false;
-                    }
-                    else
-                    {
-                        listString.Add(Path.GetFileName(f));//listString.Add(f.Substring(d.Length+1)); 沒有比較快           好像也沒有方法先讓f只留檔名而非全部路徑
-                    }
+                    f_ = Path.GetFileName(f.ToString());
+                    f_ = 資料夾hashcode + "\t" + f_;
+                    f_ = f_ +"\t"  + f.Length / 1024 / 1024;
+                    f_ = f_ + "\t" + f.LastWriteTime.ToString("yyyy/MM/dd HH:mm:ss");
 
+
+
+                    listString.Add(f_);//listString.Add(f.Substring(d.Length+1)); 沒有比較快           好像也沒有方法先讓f只留檔名而非全部路徑
                     if (nEvery++ % 200 == 0)
                         Console.Write("*");
                 }
