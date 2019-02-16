@@ -8,96 +8,93 @@ namespace ConsoleApplication91
 {
     class Program
     {
-        static List<string> listString = new List<string>(); //static List<string> listString = new List<string>(1000000);沒有比較快
+        static List<string> _listString = new List<string>(); //static List<string> listString = new List<string>(1000000);沒有比較快
+        static int _nEvery = 0;
 
         static void Main(string[] args)
         {
             var watch = System.Diagnostics.Stopwatch.StartNew();
-            watch.Reset(); watch.Start();
+            watch.Reset();
+            watch.Start();
 
+            int nFiles;
+            long nSize;
 
+            nFiles = 0;
+            nSize = 0;
+            DirSearch(@"D:\", ref nFiles, ref nSize);
 
-             int num = 0;
-             long size = 0;
-            DirSearch(@"D:\", ref num, ref size);
-             num = 0;
-             size = 0;
-            DirSearch(@"C:\", ref num, ref size);
+            nFiles = 0;
+            nSize = 0;
+            DirSearch(@"C:\", ref nFiles, ref nSize);
 
-            TextWriter tw = new StreamWriter(@"C:\Users\lenovo\Desktop\CCCCCandDDDDD.txt",false,Encoding.Unicode);
+            TextWriter tw = new StreamWriter(@"C:\Users\lenovo\Desktop\CCCCCandDDDDD.txt", false, Encoding.Unicode);
 
-            foreach (string s in listString)
+            foreach (string s in _listString)
                 tw.WriteLine(s);
-
             tw.Close();
 
 
-            watch.Stop(); Console.WriteLine(watch.ElapsedMilliseconds / 1000); Console.Read();
+            watch.Stop();
+            Console.WriteLine(watch.ElapsedMilliseconds / 1000);
+            Console.Read();
         }
 
-        static int nEvery = 0;
-        static void DirSearch(string sDir,ref int num,ref long size)
+        static void DirSearch(string sDir, ref int nFiles, ref long nSize)
         {
-            string[] Dirs;
-            try { Dirs = Directory.GetDirectories(sDir); }
+            string[] directories;
+            try { directories = Directory.GetDirectories(sDir); }
             catch /*(System.Exception excpt)*/ { /*listString.Add("Error1 occured: " + excpt.Message);*/ return; }
 
 
-            string Dirs_code = "";
+            string sDirCode = "";
             if (sDir.Length < 15)
-                Dirs_code = sDir.ToString();
+                sDirCode = sDir.ToString();
             else
-                Dirs_code = sDir.GetHashCode().ToString();
+                sDirCode = sDir.GetHashCode().ToString();
 
-            long ori_size = size;
-            int ori_num = num;
-
-
+            long ori_size = nSize;
+            int ori_num = nFiles;
             long new_size = 0;
             int new_num = 0;
 
-            foreach (string d in Dirs)
+            foreach (string d in directories)
             {
-                DirSearch(d, ref num, ref size);
+                DirSearch(d, ref nFiles, ref nSize);
 
-                new_size += size;
-                new_num += num;
+                new_size += nSize;
+                new_num += nFiles;
 
-                    size = ori_size;
-                    num = ori_num;
+                nSize = ori_size;
+                nFiles = ori_num;
             }
 
-            size = new_size;
-            num = new_num;
-
+            nSize = new_size;
+            nFiles = new_num;
 
             FileInfo[] Files;
             string f_;
             try { var dir = new DirectoryInfo(sDir); Files = dir.GetFiles(); }
             catch /*(System.Exception excpt)*/ { /*listString.Add("Error2 occured: " + excpt.Message);*/ /*continue*/return; }
 
-
-
             foreach (FileInfo f in Files)
             {
                 f_ = Path.GetFileName(f.ToString());
-                f_ = Dirs_code + "\t" + f_;
-                long 檔案大小 = f.Length ;
-                size += 檔案大小;
-                num++;
+                f_ = sDirCode + "\t" + f_;
+                long 檔案大小 = f.Length;
+                nSize += 檔案大小;
+                nFiles++;
                 f_ = f_ + "\t" + f.LastWriteTime.ToString("yyyy/MM/dd HH:mm:ss");
                 f_ = f_ + "\t" + 檔案大小;
 
-                listString.Add(f_);//listString.Add(f.Substring(d.Length+1)); 沒有比較快           好像也沒有方法先讓f只留檔名而非全部路徑
-                if (nEvery++ % 200 == 0)
+                _listString.Add(f_);//listString.Add(f.Substring(d.Length+1)); 沒有比較快           好像也沒有方法先讓f只留檔名而非全部路徑
+                if (_nEvery++ % 500 == 0)
                     Console.Write("*");
             }
 
 
-            listString.Add("【】" + sDir + "\t" + Dirs_code + "\t" + num + "\t" + size/1024/1024);//這邊是 Dirs 總結
+            _listString.Add("【】" + sDir + "\t" + sDirCode + "\t" + nFiles + "\t" + nSize / 1024 / 1024);//這邊是 Dirs 總結
         }
-
-
 
     }
 }
