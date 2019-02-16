@@ -16,8 +16,13 @@ namespace ConsoleApplication91
             watch.Reset(); watch.Start();
 
 
-            DirSearch(@"C:\");
-            DirSearch(@"D:\");
+
+             int num = 0;
+             long size = 0;
+            DirSearch(@"D:\", ref num, ref size);
+             num = 0;
+             size = 0;
+            DirSearch(@"C:\", ref num, ref size);
 
             TextWriter tw = new StreamWriter(@"C:\Users\lenovo\Desktop\CCCCCandDDDDD.txt",false,Encoding.Unicode);
 
@@ -31,41 +36,56 @@ namespace ConsoleApplication91
         }
 
         static int nEvery = 0;
-        static void DirSearch(string sDir)
+        static void DirSearch(string sDir,ref int num,ref long size)
         {
             string[] Dirs;
             try { Dirs = Directory.GetDirectories(sDir); }
             catch /*(System.Exception excpt)*/ { /*listString.Add("Error1 occured: " + excpt.Message);*/ return; }
 
-            FileSearch(sDir);
+
+            string Dirs_code = "";
+            if (sDir.Length < 15)
+                Dirs_code = sDir.ToString();
+            else
+                Dirs_code = sDir.GetHashCode().ToString();
+
+            long ori_size = size;
+            int ori_num = num;
+
+
+            long new_size = 0;
+            int new_num = 0;
 
             foreach (string d in Dirs)
             {
-                DirSearch(d);
+                DirSearch(d, ref num, ref size);
+
+                new_size += size;
+                new_num += num;
+
+                    size = ori_size;
+                    num = ori_num;
             }
 
-        }
+            size = new_size;
+            num = new_num;
 
-        static void FileSearch(string d)
-        {
+
             FileInfo[] Files;
             string f_;
-            try { var dir = new DirectoryInfo(d); Files = dir.GetFiles(); }
+            try { var dir = new DirectoryInfo(sDir); Files = dir.GetFiles(); }
             catch /*(System.Exception excpt)*/ { /*listString.Add("Error2 occured: " + excpt.Message);*/ /*continue*/return; }
 
-            string 資料夾code = "";
-            if (d.Length < 15)
-                資料夾code = d.ToString();
-            else
-                資料夾code = d.GetHashCode().ToString();
 
-            listString.Add("【】" + d + "\t" + 資料夾code + "\t" + "0" + "\t" + "0");
 
             foreach (FileInfo f in Files)
             {
                 f_ = Path.GetFileName(f.ToString());
-                f_ = 資料夾code + "\t" + f_;
-                f_ = f_ + "\t" + f.Length / 1024 / 1024;
+                f_ = Dirs_code + "\t" + f_;
+                long 檔案大小 = f.Length ;
+                size += 檔案大小;
+                num++;
+                f_ = f_ + "\t" + 檔案大小;
                 f_ = f_ + "\t" + f.LastWriteTime.ToString("yyyy/MM/dd HH:mm:ss");
 
                 listString.Add(f_);//listString.Add(f.Substring(d.Length+1)); 沒有比較快           好像也沒有方法先讓f只留檔名而非全部路徑
@@ -74,8 +94,10 @@ namespace ConsoleApplication91
             }
 
 
-
+            listString.Add("【】" + sDir + "\t" + Dirs_code + "\t" + num + "\t" + size/1024/1024);//這邊是 Dirs 總結
         }
+
+
 
     }
 }
