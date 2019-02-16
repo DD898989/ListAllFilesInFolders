@@ -85,8 +85,8 @@ namespace ConsoleApplication91
                 long 檔案大小 = f.Length ;
                 size += 檔案大小;
                 num++;
-                f_ = f_ + "\t" + 檔案大小;
                 f_ = f_ + "\t" + f.LastWriteTime.ToString("yyyy/MM/dd HH:mm:ss");
+                f_ = f_ + "\t" + 檔案大小;
 
                 listString.Add(f_);//listString.Add(f.Substring(d.Length+1)); 沒有比較快           好像也沒有方法先讓f只留檔名而非全部路徑
                 if (nEvery++ % 200 == 0)
