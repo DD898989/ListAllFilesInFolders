@@ -19,7 +19,7 @@ namespace ConsoleApplication91
             DirSearch(@"C:\");
             DirSearch(@"D:\");
 
-            TextWriter tw = new StreamWriter(@"C:\Users\dave.gan\Desktop\CCCCCandDDDDD.txt");
+            TextWriter tw = new StreamWriter(@"C:\Users\lenovo\Desktop\CCCCCandDDDDD.txt",false,Encoding.Unicode);
 
             foreach (string s in listString)
                 tw.WriteLine(s);
@@ -43,6 +43,7 @@ namespace ConsoleApplication91
             {
                 DirSearch(d);
             }
+
         }
 
         static void FileSearch(string d)
@@ -52,13 +53,18 @@ namespace ConsoleApplication91
             try { var dir = new DirectoryInfo(d); Files = dir.GetFiles(); }
             catch /*(System.Exception excpt)*/ { /*listString.Add("Error2 occured: " + excpt.Message);*/ /*continue*/return; }
 
-            int 資料夾hashcode = d.GetHashCode();
-            listString.Add("【】" + d + "\t" + 資料夾hashcode + "\t" + "0" + "\t" + "0");
+            string 資料夾code = "";
+            if (d.Length < 15)
+                資料夾code = d.ToString();
+            else
+                資料夾code = d.GetHashCode().ToString();
+
+            listString.Add("【】" + d + "\t" + 資料夾code + "\t" + "0" + "\t" + "0");
 
             foreach (FileInfo f in Files)
             {
                 f_ = Path.GetFileName(f.ToString());
-                f_ = 資料夾hashcode + "\t" + f_;
+                f_ = 資料夾code + "\t" + f_;
                 f_ = f_ + "\t" + f.Length / 1024 / 1024;
                 f_ = f_ + "\t" + f.LastWriteTime.ToString("yyyy/MM/dd HH:mm:ss");
 
@@ -66,6 +72,9 @@ namespace ConsoleApplication91
                 if (nEvery++ % 200 == 0)
                     Console.Write("*");
             }
+
+
+
         }
 
     }
