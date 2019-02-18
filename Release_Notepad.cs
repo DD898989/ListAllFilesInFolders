@@ -24,6 +24,15 @@ namespace ConsoleApplication91
             watch.Reset();
             watch.Start();
 
+
+            ListAdd(
+                "【D=directory】【f=file】",
+                "【directory code】",
+                "【directory code】【file】",
+                "【file count】【last edit time】",
+                "【size】"
+                );
+
             _nFiles = 0;
             _nSize = 0;
             DirSearch(@"C:\");
@@ -33,14 +42,6 @@ namespace ConsoleApplication91
             DirSearch(@"D:\");
 
             TextWriter tw = new StreamWriter(@"C:\Users\dave.gan\Desktop\FilesInAllDisks.txt", false, Encoding.Unicode);
-
-            ListAdd(
-                "【D=directory】【f=file】",
-                "【directory code】",
-                "【directory code】【file】",
-                "【file count】【last edit time】",
-                "【size】"
-                );
 
             foreach (string s in _listString)
                 tw.WriteLine(s);
@@ -61,8 +62,7 @@ namespace ConsoleApplication91
             FileInfo[] files;
             string sDirCode = "";
 
-            try { directories = Directory.GetDirectories(sDir); }
-            catch /*(System.Exception excpt)*/ { /*listString.Add("Error1 occured: " + excpt.Message);*/ return; }
+            try { directories = Directory.GetDirectories(sDir); }  catch /*(System.Exception excpt)*/ { /*listString.Add("Error1 occured: " + excpt.Message);*/ return; }
 
             if (sDir.Length < 15)
                 sDirCode = sDir.ToString();
@@ -84,33 +84,52 @@ namespace ConsoleApplication91
             _nSize = new_size;
             _nFiles = new_num;
 
-            try { var dir = new DirectoryInfo(sDir); files = dir.GetFiles(); }
-            catch /*(System.Exception excpt)*/ { /*listString.Add("Error2 occured: " + excpt.Message);*/ /*continue*/return; }
+            try { var dir = new DirectoryInfo(sDir); files = dir.GetFiles(); } catch /*(System.Exception excpt)*/ { /*listString.Add("Error2 occured: " + excpt.Message);*/ /*continue*/return; }
 
+            long sizeMB;
+            bool bPrintDir = false;
             foreach (FileInfo f in files)
             {
                 _nSize += f.Length;
                 _nFiles++;
+                sizeMB = f.Length / 1024 / 1024;
 
-                ListAdd(
-                        "f",
-                        sDirCode,
-                        Path.GetFileName(f.ToString())/*FileInfo only contains full path file*/,
-                        f.LastWriteTime.ToString("yyyy/MM/dd HH:mm:ss"),
-                        (f.Length / 1024 / 1024).ToString()
-                    );
+                //if (
+                    //sizeMB > 10
+                    //&&
+                    //DateTime.Compare(new DateTime(2019, 2, 18, 0, 0, 0), f.LastWriteTime) < 0
+                    //||
+                    //f.ToString().ToLower().Contains(".txt")
+                //    )
+                {
+                    bPrintDir = true;
+                    ListAdd(
+                            "f",
+                            sDirCode,
+                            Path.GetFileName(f.ToString())/*FileInfo only contains full path file*/,
+                            f.LastWriteTime.ToString("yyyy/MM/dd HH:mm:ss"),
+                            sizeMB.ToString()
+                        );
+                }
 
                 if (_nEvery++ % 500 == 0)
                     Console.Write("*"); //user experience
             }
 
-            ListAdd(
-                "D",
-                sDir,
-                sDirCode,
-                _nFiles.ToString(),
-                (_nSize / 1024 / 1024).ToString()
-                );
+            sizeMB = _nSize / 1024 / 1024;
+            //if (
+            //    bPrintDir
+            //    sizeMB > 5000
+            //    )
+            {
+                ListAdd(
+                    "D",
+                    sDir,
+                    sDirCode,
+                    _nFiles.ToString(),
+                    sizeMB.ToString()
+                    );
+            }
         }
 
     }
