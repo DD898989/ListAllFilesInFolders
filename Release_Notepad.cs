@@ -26,7 +26,7 @@ namespace ConsoleApplication91
 
             _nFiles = 0;
             _nSize = 0;
-            //DirSearch(@"C:\");
+            DirSearch(@"C:\");
 
             _nFiles = 0;
             _nSize = 0;
