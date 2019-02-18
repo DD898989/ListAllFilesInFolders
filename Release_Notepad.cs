@@ -13,9 +13,9 @@ namespace ConsoleApplication91
         static int _nFiles;
         static long _nSize;
 
-        static string DirectoryOrFile(string type, string directoryCode, string directoryCode_or_file, string fileCount_or_lastEditTime, string size)
+        static void ListAdd(string type, string directoryCode, string directoryCode_or_file, string fileCount_or_lastEditTime, string size)
         {
-            return (type + "\t" + directoryCode + "\t" + directoryCode_or_file + "\t" + fileCount_or_lastEditTime + "\t" + size);
+            _listString.Add(type + "\t" + directoryCode + "\t" + directoryCode_or_file + "\t" + fileCount_or_lastEditTime + "\t" + size);
         }
 
         static void Main(string[] args)
@@ -34,13 +34,13 @@ namespace ConsoleApplication91
 
             TextWriter tw = new StreamWriter(@"C:\Users\dave.gan\Desktop\FilesInAllDisks.txt", false, Encoding.Unicode);
 
-            tw.WriteLine(DirectoryOrFile(
+            ListAdd(
                 "【D=directory】【f=file】",
                 "【directory code】",
                 "【directory code】【file】",
                 "【file count】【last edit time】",
                 "【size】"
-                ));
+                );
 
             foreach (string s in _listString)
                 tw.WriteLine(s);
@@ -53,20 +53,22 @@ namespace ConsoleApplication91
 
         static void DirSearch(string sDir)
         {
+            long ori_size = _nSize;
+            int ori_num = _nFiles;
+            long new_size = 0;
+            int new_num = 0;
             string[] directories;
+            FileInfo[] files;
+            string sDirCode = "";
+
             try { directories = Directory.GetDirectories(sDir); }
             catch /*(System.Exception excpt)*/ { /*listString.Add("Error1 occured: " + excpt.Message);*/ return; }
 
-            string sDirCode = "";
             if (sDir.Length < 15)
                 sDirCode = sDir.ToString();
             else
                 sDirCode = sDir.GetHashCode().ToString();
 
-            long ori_size = _nSize;
-            int ori_num = _nFiles;
-            long new_size = 0;
-            int new_num = 0;
 
             foreach (string d in directories)
             {
@@ -82,36 +84,33 @@ namespace ConsoleApplication91
             _nSize = new_size;
             _nFiles = new_num;
 
-            FileInfo[] files;
             try { var dir = new DirectoryInfo(sDir); files = dir.GetFiles(); }
             catch /*(System.Exception excpt)*/ { /*listString.Add("Error2 occured: " + excpt.Message);*/ /*continue*/return; }
 
             foreach (FileInfo f in files)
             {
-                long nSize = f.Length;
-
-                _nSize += nSize;
+                _nSize += f.Length;
                 _nFiles++;
 
-                _listString.Add(DirectoryOrFile(
-                    "f",
-                    sDirCode,
-                    Path.GetFileName(f.ToString())/*FileInfo only contains full path file*/,
-                    f.LastWriteTime.ToString("yyyy/MM/dd HH:mm:ss"),
-                    (nSize / 1024 / 1024).ToString()
-                ));
+                ListAdd(
+                        "f",
+                        sDirCode,
+                        Path.GetFileName(f.ToString())/*FileInfo only contains full path file*/,
+                        f.LastWriteTime.ToString("yyyy/MM/dd HH:mm:ss"),
+                        (f.Length / 1024 / 1024).ToString()
+                    );
 
                 if (_nEvery++ % 500 == 0)
                     Console.Write("*"); //user experience
             }
 
-            _listString.Add(DirectoryOrFile(
+            ListAdd(
                 "D",
                 sDir,
                 sDirCode,
                 _nFiles.ToString(),
                 (_nSize / 1024 / 1024).ToString()
-                ));
+                );
         }
 
     }
