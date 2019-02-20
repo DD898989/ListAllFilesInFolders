@@ -24,7 +24,6 @@ namespace ConsoleApplication91
             watch.Reset();
             watch.Start();
 
-
             ListAdd(
                 "【D=directory】【f=file】",
                 "【directory code】",
@@ -62,7 +61,15 @@ namespace ConsoleApplication91
             FileInfo[] files;
             string sDirCode = "";
 
-            try { directories = Directory.GetDirectories(sDir); }  catch /*(System.Exception excpt)*/ { /*listString.Add("Error1 occured: " + excpt.Message);*/ return; }
+            try 
+            { 
+                directories = Directory.GetDirectories(sDir); 
+            }
+            catch /*(System.Exception excpt)*/ 
+            { 
+                /*listString.Add("Error1 occured: " + excpt.Message);*/ 
+                return; 
+            }
 
             if (sDir.Length < 15)
                 sDirCode = sDir.ToString();
@@ -84,7 +91,15 @@ namespace ConsoleApplication91
             _nSize = new_size;
             _nFiles = new_num;
 
-            try { var dir = new DirectoryInfo(sDir); files = dir.GetFiles(); } catch /*(System.Exception excpt)*/ { /*listString.Add("Error2 occured: " + excpt.Message);*/ /*continue*/return; }
+            try 
+            { 
+                files = new DirectoryInfo(sDir).GetFiles(); 
+            }
+            catch /*(System.Exception excpt)*/ 
+            { 
+                /*listString.Add("Error2 occured: " + excpt.Message);*/
+                return; 
+            }
 
             long sizeMB;
             bool bPrintDir = false;
@@ -95,11 +110,11 @@ namespace ConsoleApplication91
                 sizeMB = f.Length / 1024 / 1024;
 
                 //if (
-                    //sizeMB > 10
-                    //&&
-                    //DateTime.Compare(new DateTime(2019, 2, 18, 0, 0, 0), f.LastWriteTime) < 0
-                    //||
-                    //f.ToString().ToLower().Contains(".txt")
+                //sizeMB > 10
+                //&&
+                //DateTime.Compare(new DateTime(2019, 2, 18, 0, 0, 0), f.LastWriteTime) < 0
+                //||
+                //f.ToString().ToLower().Contains(".txt")
                 //    )
                 {
                     bPrintDir = true;
