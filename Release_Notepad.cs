@@ -12,6 +12,7 @@ namespace ConsoleApplication91
         static int _nEvery = 0;
         static int _nFiles;
         static long _nSize;
+        static string ouputPath = @"C:\Users\dave.gan\Desktop\FilesInAllDisks.txt";
 
         static void ListAdd(string type, string directoryCode, string directoryCode_or_file, string fileCount_or_lastEditTime, string size)
         {
@@ -23,6 +24,10 @@ namespace ConsoleApplication91
             var watch = System.Diagnostics.Stopwatch.StartNew();
             watch.Reset();
             watch.Start();
+
+
+            if (File.Exists(ouputPath))
+                File.Delete(ouputPath);
 
             ListAdd(
                 "【D=directory】【f=file】",
@@ -40,16 +45,25 @@ namespace ConsoleApplication91
             _nSize = 0;
             DirSearch(@"D:\");
 
-            TextWriter tw = new StreamWriter(@"C:\Users\dave.gan\Desktop\FilesInAllDisks.txt", false, Encoding.Unicode);
-
-            foreach (string s in _listString)
-                tw.WriteLine(s);
-            tw.Close();
+            writeFile();
 
             watch.Stop();
             Console.WriteLine(watch.ElapsedMilliseconds / 1000);
             Console.Read();
         }
+
+
+        static void writeFile()
+        {
+            TextWriter tw = new StreamWriter(ouputPath, true, Encoding.Unicode);
+
+            foreach (string s in _listString)
+                tw.WriteLine(s);
+            tw.Close();
+
+            _listString.Clear();
+        }
+
 
         static void DirSearch(string sDir)
         {
@@ -61,14 +75,14 @@ namespace ConsoleApplication91
             FileInfo[] files;
             string sDirCode = "";
 
-            try 
-            { 
-                directories = Directory.GetDirectories(sDir); 
+            try
+            {
+                directories = Directory.GetDirectories(sDir);
             }
-            catch /*(System.Exception excpt)*/ 
-            { 
-                /*listString.Add("Error1 occured: " + excpt.Message);*/ 
-                return; 
+            catch /*(System.Exception excpt)*/
+            {
+                /*listString.Add("Error1 occured: " + excpt.Message);*/
+                return;
             }
 
             if (sDir.Length < 15)
@@ -91,14 +105,14 @@ namespace ConsoleApplication91
             _nSize = new_size;
             _nFiles = new_num;
 
-            try 
-            { 
-                files = new DirectoryInfo(sDir).GetFiles(); 
+            try
+            {
+                files = new DirectoryInfo(sDir).GetFiles();
             }
-            catch /*(System.Exception excpt)*/ 
-            { 
+            catch /*(System.Exception excpt)*/
+            {
                 /*listString.Add("Error2 occured: " + excpt.Message);*/
-                return; 
+                return;
             }
 
             long sizeMB;
@@ -129,6 +143,9 @@ namespace ConsoleApplication91
 
                 if (_nEvery++ % 500 == 0)
                     Console.Write("*"); //user experience
+
+                if (_nEvery % 50000 == 0)
+                    writeFile();
             }
 
             sizeMB = _nSize / 1024 / 1024;
