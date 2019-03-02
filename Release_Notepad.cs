@@ -12,11 +12,11 @@ namespace ConsoleApplication91
         static int _nEvery = 0;
         static int _nFiles;
         static long _nSize;
-        static string ouputPath = @"C:\Users\dave.gan\Desktop\FilesInAllDisks.txt";
+        static string ouputPath = @"C:\Users\lenovo\Desktop\FilesInAllDisks.txt";
 
-        static void ListAdd(string type, string directoryCode, string directoryCode_or_file, string fileCount_or_lastEditTime, string size)
+        static void ListAdd(string type, string directoryCode, string directoryCode_or_file, string fileCount_or_lastEditTime, string createTime, string size)
         {
-            _listString.Add(type + "\t" + directoryCode + "\t" + directoryCode_or_file + "\t" + fileCount_or_lastEditTime + "\t" + size);
+            _listString.Add(type + "\t" + directoryCode + "\t" + directoryCode_or_file + "\t" + fileCount_or_lastEditTime + "\t" + createTime + "\t" + size);
         }
 
         static void Main(string[] args)
@@ -34,6 +34,7 @@ namespace ConsoleApplication91
                 "【directory code】",
                 "【directory code】【file】",
                 "【file count】【last edit time】",
+                "【create time】",
                 "【size】"
                 );
 
@@ -73,6 +74,7 @@ namespace ConsoleApplication91
             int new_num = 0;
             string[] directories;
             FileInfo[] files;
+            DirectoryInfo dir;
             string sDirCode = "";
 
             try
@@ -107,7 +109,8 @@ namespace ConsoleApplication91
 
             try
             {
-                files = new DirectoryInfo(sDir).GetFiles();
+                dir = new DirectoryInfo(sDir);
+                files = dir.GetFiles();
             }
             catch /*(System.Exception excpt)*/
             {
@@ -137,6 +140,7 @@ namespace ConsoleApplication91
                             sDirCode,
                             Path.GetFileName(f.ToString())/*FileInfo only contains full path file*/,
                             f.LastWriteTime.ToString("yyyy/MM/dd HH:mm:ss"),
+                            f.CreationTime.ToString("yyyy/MM/dd HH:mm:ss"),
                             sizeMB.ToString()
                         );
                 }
@@ -159,6 +163,7 @@ namespace ConsoleApplication91
                     sDir,
                     sDirCode,
                     _nFiles.ToString(),
+                    dir.CreationTime.ToString("yyyy/MM/dd HH:mm:ss"),
                     sizeMB.ToString()
                     );
             }
