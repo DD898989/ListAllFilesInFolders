@@ -1,2 +1,2 @@
-# ListAllFilesInAFolder
+# ListAllFilesInFolders
 test
