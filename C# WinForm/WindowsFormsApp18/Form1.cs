@@ -18,7 +18,8 @@ namespace WindowsFormsApp18
         long _nSize;
         int _nMaxFileSizeMB;
         string _sContainsFileName;
-        DateTime _recentTime;
+        DateTime _startTime;
+        DateTime _endTime;
 
         public Form1()
         {
@@ -156,7 +157,9 @@ namespace WindowsFormsApp18
                 if (
                 sizeMB >= _nMaxFileSizeMB
                 &&
-                DateTime.Compare(this._recentTime, f.LastWriteTime) < 0
+                DateTime.Compare(this._startTime, f.LastWriteTime) <= 0
+                &&
+                DateTime.Compare(this._endTime, f.LastWriteTime) >= 0
                 &&
                 f.ToString().ToLower().Contains(_sContainsFileName)
                     )
@@ -212,11 +215,13 @@ namespace WindowsFormsApp18
             this._sContainsFileName = this.textBox1.Text;
             if (this.numericUpDown2.Value != 0)
             {
-                this._recentTime = DateTime.Now - TimeSpan.FromSeconds((double)this.numericUpDown2.Value);
+                this._startTime = DateTime.Now - TimeSpan.FromSeconds((double)this.numericUpDown2.Value);
+                this._endTime = DateTime.Now;
             }
             else
             {
-                this._recentTime = new DateTime(1, 1, 1, 0, 0, 0);
+                this._startTime = new DateTime(1, 1, 1, 0, 0, 0);
+                this._endTime = new DateTime(9999, 12, 31, 23, 59, 59);
             }
             Run();
             this.Enabled = true;
