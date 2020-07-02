@@ -1,0 +1,18 @@
+C:\Users\lenovo\source\repos\WindowsFormsApp18\WindowsFormsApp18\bin\Release\WindowsFormsApp18.exe.config
+C:\Users\lenovo\source\repos\WindowsFormsApp18\WindowsFormsApp18\bin\Release\WindowsFormsApp18.exe
+C:\Users\lenovo\source\repos\WindowsFormsApp18\WindowsFormsApp18\bin\Release\WindowsFormsApp18.pdb
+C:\Users\lenovo\source\repos\WindowsFormsApp18\WindowsFormsApp18\obj\Release\WindowsFormsApp18.csprojAssemblyReference.cache
+C:\Users\lenovo\source\repos\WindowsFormsApp18\WindowsFormsApp18\obj\Release\WindowsFormsApp18.Form1.resources
+C:\Users\lenovo\source\repos\WindowsFormsApp18\WindowsFormsApp18\obj\Release\WindowsFormsApp18.Properties.Resources.resources
+C:\Users\lenovo\source\repos\WindowsFormsApp18\WindowsFormsApp18\obj\Release\WindowsFormsApp18.csproj.GenerateResource.cache
+C:\Users\lenovo\source\repos\WindowsFormsApp18\WindowsFormsApp18\obj\Release\WindowsFormsApp18.exe
+C:\Users\lenovo\source\repos\WindowsFormsApp18\WindowsFormsApp18\obj\Release\WindowsFormsApp18.pdb
+C:\Users\lenovo\Desktop\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\bin\Release\WindowsFormsApp18.exe.config
+C:\Users\lenovo\Desktop\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\bin\Release\WindowsFormsApp18.exe
+C:\Users\lenovo\Desktop\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\bin\Release\WindowsFormsApp18.pdb
+C:\Users\lenovo\Desktop\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\obj\Release\WindowsFormsApp18.csprojAssemblyReference.cache
+C:\Users\lenovo\Desktop\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\obj\Release\WindowsFormsApp18.Form1.resources
+C:\Users\lenovo\Desktop\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\obj\Release\WindowsFormsApp18.Properties.Resources.resources
+C:\Users\lenovo\Desktop\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\obj\Release\WindowsFormsApp18.csproj.GenerateResource.cache
+C:\Users\lenovo\Desktop\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\obj\Release\WindowsFormsApp18.exe
+C:\Users\lenovo\Desktop\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\obj\Release\WindowsFormsApp18.pdb

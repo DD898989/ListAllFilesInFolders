@@ -8,7 +8,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
-namespace WindowsFormsApplication32
+namespace WindowsFormsApp18
 {
     public partial class Form1 : Form
     {
@@ -16,19 +16,34 @@ namespace WindowsFormsApplication32
         int _nEvery = 0;
         int _nFiles;
         long _nSize;
+        int _nMaxFileSizeMB;
+        string _sContainsFileName;
+        DateTime _recentTime;
 
         public Form1()
         {
             InitializeComponent();
             this.textBox_OutputFolder.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            this.textBox_OutputFileName.Text = "AllFile.txt";
+            this.textBox_OutputFileName.Text = "AllFile.csv";
             this.listBox_SearchFolders.Items.Add("C:\\");
             this.listBox_SearchFolders.Items.Add("D:\\");
         }
 
-        void ListAdd(string type, string directoryCode, string directoryCode_or_file, string fileCount_or_lastEditTime, string createTime, string size)
+        void ListAdd(
+            string directoryCode,
+            string type,
+            string directoryCode_or_file, 
+            string fileCount_or_lastEditTime, 
+            string createTime, 
+            string size
+            )
         {
-            _listString.Add(type + "\t" + directoryCode + "\t" + directoryCode_or_file + "\t" + fileCount_or_lastEditTime + "\t" + createTime + "\t" + size);
+            _listString.Add(
+                directoryCode + "\t" +
+                type + "\t" + 
+                directoryCode_or_file + "\t" + 
+                fileCount_or_lastEditTime + "\t" + 
+                createTime + "\t" + size);
         }
 
         void Run()
@@ -41,8 +56,8 @@ namespace WindowsFormsApplication32
                 File.Delete(Path.Combine(this.textBox_OutputFolder.Text, this.textBox_OutputFileName.Text));
 
             ListAdd(
-                "【D=directory】【f=file】",
                 "【directory code】",
+                "【D=directory】【f=file】",
                 "【directory code】【file】",
                 "【file count】【last edit time】",
                 "【create time】",
@@ -95,10 +110,14 @@ namespace WindowsFormsApplication32
                 return;
             }
 
-            if (sDir.Length < 15)
+            if (sDir.Length < 15 || !this.checkBox1.Checked)
+            {
                 sDirCode = sDir.ToString();
+            }
             else
+            {
                 sDirCode = sDir.GetHashCode().ToString();
+            }
 
 
             foreach (string d in directories)
@@ -134,18 +153,18 @@ namespace WindowsFormsApplication32
                 _nFiles++;
                 sizeMB = f.Length / 1024 / 1024;
 
-                //if (
-                //sizeMB > 10
-                //&&
-                //DateTime.Compare(new DateTime(2019, 2, 18, 0, 0, 0), f.LastWriteTime) < 0
-                //||
-                //f.ToString().ToLower().Contains(".txt")
-                //    )
+                if (
+                sizeMB >= _nMaxFileSizeMB
+                &&
+                DateTime.Compare(this._recentTime, f.LastWriteTime) < 0
+                &&
+                f.ToString().ToLower().Contains(_sContainsFileName)
+                    )
                 {
                     bPrintDir = true;
                     ListAdd(
-                            "f",
                             sDirCode,
+                            "f",
                             Path.GetFileName(f.ToString())/*FileInfo only contains full path file*/,
                             f.LastWriteTime.ToString("yyyy/MM/dd HH:mm:ss"),
                             f.CreationTime.ToString("yyyy/MM/dd HH:mm:ss"),
@@ -166,14 +185,13 @@ namespace WindowsFormsApplication32
             }
 
             sizeMB = _nSize / 1024 / 1024;
-            //if (
-            //    bPrintDir
-            //    sizeMB > 5000
-            //    )
+            if (
+                bPrintDir
+                )
             {
                 ListAdd(
-                    "D",
                     sDir,
+                    "D",
                     sDirCode,
                     _nFiles.ToString(),
                     dir.CreationTime.ToString("yyyy/MM/dd HH:mm:ss"),
@@ -190,6 +208,16 @@ namespace WindowsFormsApplication32
         private void button_Run_Click(object sender, EventArgs e)
         {
             this.Enabled = false;
+            this._nMaxFileSizeMB = (int)this.numericUpDown1.Value;
+            this._sContainsFileName = this.textBox1.Text;
+            if (this.numericUpDown2.Value != 0)
+            {
+                this._recentTime = DateTime.Now - TimeSpan.FromMinutes((double)this.numericUpDown2.Value);
+            }
+            else
+            {
+                this._recentTime = new DateTime(1, 1, 1, 0, 0, 0);
+            }
             Run();
             this.Enabled = true;
         }
@@ -245,13 +273,13 @@ namespace WindowsFormsApplication32
                 listBox_SearchFolders.SelectedIndex = index;
                 return;
             }
-            catch 
+            catch
             {
             }
 
             try
             {
-                listBox_SearchFolders.SelectedIndex = index-1;
+                listBox_SearchFolders.SelectedIndex = index - 1;
                 return;
             }
             catch
