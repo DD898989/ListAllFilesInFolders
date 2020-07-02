@@ -212,7 +212,7 @@ namespace WindowsFormsApp18
             this._sContainsFileName = this.textBox1.Text;
             if (this.numericUpDown2.Value != 0)
             {
-                this._recentTime = DateTime.Now - TimeSpan.FromMinutes((double)this.numericUpDown2.Value);
+                this._recentTime = DateTime.Now - TimeSpan.FromSeconds((double)this.numericUpDown2.Value);
             }
             else
             {

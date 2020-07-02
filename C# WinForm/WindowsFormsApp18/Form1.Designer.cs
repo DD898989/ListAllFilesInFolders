@@ -222,7 +222,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(133, 12);
             this.label7.TabIndex = 30;
-            this.label7.Text = "file edited in recent minutes";
+            this.label7.Text = "file edited in recent seconds";
             // 
             // Form1
             // 
