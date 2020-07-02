@@ -157,9 +157,9 @@ namespace WindowsFormsApp18
                 if (
                 sizeMB >= _nMaxFileSizeMB
                 &&
-                DateTime.Compare(this._startTime, f.LastWriteTime) <= 0
+                f.LastWriteTime >= this._startTime
                 &&
-                DateTime.Compare(this._endTime, f.LastWriteTime) >= 0
+                f.LastWriteTime <= this._endTime
                 &&
                 f.ToString().ToLower().Contains(_sContainsFileName)
                     )
