@@ -210,7 +210,7 @@
             // 
             // numericUpDown2
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(293, 263);
+            this.numericUpDown2.Location = new System.Drawing.Point(284, 260);
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(61, 22);
             this.numericUpDown2.TabIndex = 29;
@@ -218,11 +218,11 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(370, 262);
+            this.label7.Location = new System.Drawing.Point(351, 265);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(133, 12);
+            this.label7.Size = new System.Drawing.Size(224, 12);
             this.label7.TabIndex = 30;
-            this.label7.Text = "file edited in recent seconds";
+            this.label7.Text = "file edited in recent seconds before click \"Run\"";
             // 
             // Form1
             // 

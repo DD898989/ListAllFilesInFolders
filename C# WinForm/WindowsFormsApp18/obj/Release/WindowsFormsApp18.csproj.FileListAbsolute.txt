@@ -16,3 +16,13 @@ C:\Users\lenovo\Desktop\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\obj\R
 C:\Users\lenovo\Desktop\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\obj\Release\WindowsFormsApp18.csproj.GenerateResource.cache
 C:\Users\lenovo\Desktop\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\obj\Release\WindowsFormsApp18.exe
 C:\Users\lenovo\Desktop\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\obj\Release\WindowsFormsApp18.pdb
+C:\Users\DaveSwift5\Desktop\Github_Proj\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\bin\Release\WindowsFormsApp18.exe.config
+C:\Users\DaveSwift5\Desktop\Github_Proj\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\bin\Release\WindowsFormsApp18.exe
+C:\Users\DaveSwift5\Desktop\Github_Proj\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\bin\Release\WindowsFormsApp18.pdb
+C:\Users\DaveSwift5\Desktop\Github_Proj\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\obj\Release\WindowsFormsApp18.csprojAssemblyReference.cache
+C:\Users\DaveSwift5\Desktop\Github_Proj\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\obj\Release\WindowsFormsApp18.Form1.resources
+C:\Users\DaveSwift5\Desktop\Github_Proj\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\obj\Release\WindowsFormsApp18.Properties.Resources.resources
+C:\Users\DaveSwift5\Desktop\Github_Proj\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\obj\Release\WindowsFormsApp18.csproj.GenerateResource.cache
+C:\Users\DaveSwift5\Desktop\Github_Proj\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\obj\Release\WindowsFormsApp18.csproj.CoreCompileInputs.cache
+C:\Users\DaveSwift5\Desktop\Github_Proj\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\obj\Release\WindowsFormsApp18.exe
+C:\Users\DaveSwift5\Desktop\Github_Proj\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\obj\Release\WindowsFormsApp18.pdb
