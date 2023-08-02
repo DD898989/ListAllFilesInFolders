@@ -18,6 +18,7 @@ namespace WindowsFormsApp18
         long _nSize;
         int _nMaxFileSizeMB;
         string _sContainsFileName;
+        string _sContainsFolderName;
         DateTime _startTime;
         DateTime _endTime;
 
@@ -161,7 +162,9 @@ namespace WindowsFormsApp18
                 &&
                 f.LastWriteTime <= this._endTime
                 &&
-                f.ToString().ToLower().Contains(_sContainsFileName)
+                f.ToString().ToLower().Contains(_sContainsFileName.ToLower())
+                &&
+                dir.Name.ToString().ToLower().Contains(_sContainsFolderName.ToLower())
                     )
                 {
                     bPrintDir = true;
@@ -171,7 +174,7 @@ namespace WindowsFormsApp18
                             Path.GetFileName(f.ToString())/*FileInfo only contains full path file*/,
                             f.LastWriteTime.ToString("yyyy/MM/dd HH:mm:ss"),
                             f.CreationTime.ToString("yyyy/MM/dd HH:mm:ss"),
-                            sizeMB.ToString()
+                            sizeMB > 0 ? sizeMB.ToString() : (((double)f.Length) / 1024 / 1024).ToString()
                         );
                 }
 
@@ -213,6 +216,7 @@ namespace WindowsFormsApp18
             this.Enabled = false;
             this._nMaxFileSizeMB = (int)this.numericUpDown1.Value;
             this._sContainsFileName = this.textBox1.Text;
+            this._sContainsFolderName = this.textBox2.Text;
             if (this.numericUpDown2.Value != 0)
             {
                 this._startTime = DateTime.Now - TimeSpan.FromSeconds((double)this.numericUpDown2.Value);

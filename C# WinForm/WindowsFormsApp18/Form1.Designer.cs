@@ -49,6 +49,8 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
@@ -194,7 +196,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(36, 262);
+            this.textBox1.Location = new System.Drawing.Point(36, 246);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(84, 22);
             this.textBox1.TabIndex = 27;
@@ -202,7 +204,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(129, 265);
+            this.label6.Location = new System.Drawing.Point(129, 249);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(89, 12);
             this.label6.TabIndex = 28;
@@ -224,11 +226,29 @@
             this.label7.TabIndex = 30;
             this.label7.Text = "file edited in recent seconds before click \"Run\"";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(129, 272);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(102, 12);
+            this.label8.TabIndex = 32;
+            this.label8.Text = "folder name contains";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(36, 269);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(84, 22);
+            this.textBox2.TabIndex = 31;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(583, 346);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.numericUpDown2);
             this.Controls.Add(this.label6);
@@ -280,6 +300,8 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
 
