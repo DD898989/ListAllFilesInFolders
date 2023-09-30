@@ -79,7 +79,8 @@ namespace WindowsFormsApp18
             InitializeComponent();
             this.textBox_OutputFolder.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             this.textBox_OutputFileName.Text = "AllFile.xlsx";
-            this.listBox_SearchFolders.Items.Add("C:\\Users\\DaveVivo\\Desktop\\案子\\9-17 東280.pdf");
+            //this.listBox_SearchFolders.Items.Add("C:\\Users\\DaveVivo\\Desktop\\案子\\9-17 東280.pdf");
+            //this.listBox_SearchFolders.Items.Add("C:\\Users\\DaveVivo\\Desktop\\案子\\19號出貨OK預刷-鵬興595票.pdf");
             //this.listBox_SearchFolders.Items.Add("D:\\");
         }
 
@@ -87,16 +88,17 @@ namespace WindowsFormsApp18
         public class Temp
         {
             public Temp(
+                string 錯誤,
                 string 檔案,
                 string 頁數,
+                string 第一段條碼,
                 string 未命名編號,
                 string OK訂單編號,
+                string 寄件編號,
+                string 蝦皮訂單編號,
+                string 面單打印日期,
                 string 姓名,
                 string 姓名2,
-                string 待補充欄位1,
-                string 待補充欄位2,
-                string 待補充欄位3,
-                string 待補充欄位N,
                 string 回傳,
                 string 取件門市,
                 string 原始字串
@@ -104,17 +106,18 @@ namespace WindowsFormsApp18
 
                 )
             {
-                
-                this.檔案  = 檔案;
+
+                this.錯誤 = 錯誤;
+                this.檔案 = 檔案;
                 this.頁數  = 頁數;
+                this.第一段條碼 = 第一段條碼;
                 this.未命名編號  = 未命名編號;
-                this.OK訂單編號  = OK訂單編號;
+                this.OK訂單編號 = OK訂單編號;
+                this.寄件編號 = 寄件編號;
+                this.蝦皮訂單編號 = 蝦皮訂單編號;
+                this.面單打印日期 = 面單打印日期;
                 this.姓名  = 姓名;
                 this.姓名2  = 姓名2;
-                this.待補充欄位1  = 待補充欄位1;
-                this.待補充欄位2  = 待補充欄位2;
-                this.待補充欄位3  = 待補充欄位3;
-                this.待補充欄位N  = 待補充欄位N;
                 this.回傳  = 回傳;
                 this.取件門市  = 取件門市;
                 this.原始字串 = 原始字串;
@@ -123,16 +126,17 @@ namespace WindowsFormsApp18
             }
 
 
+            public string 錯誤 { get; set; }
             public string 檔案 { get; set; }
             public string 頁數 { get; set; }
+            public string 第一段條碼 { get; set; }
             public string 未命名編號 { get; set; }
             public string OK訂單編號 { get; set; }
+            public string 寄件編號 { get; set; }
+            public string 蝦皮訂單編號 { get; set; }
+            public string 面單打印日期 { get; set; }
             public string 姓名 { get; set; }
             public string 姓名2 { get; set; }
-            public string 待補充欄位1 { get; set; }
-            public string 待補充欄位2 { get; set; }
-            public string 待補充欄位3 { get; set; }
-            public string 待補充欄位N { get; set; }
             public string 回傳 { get; set; }
             public string 取件門市 { get; set; }
             public string 原始字串 { get; set; }
@@ -158,16 +162,17 @@ namespace WindowsFormsApp18
 
 
             lists.Add(new Temp(
+                "單號/查詢 錯誤",
                 "檔案",
                 "頁數",
-                "未命名編號",
+                "第一段條碼",
+                "第二段條碼",
                 "OK訂單編號",
+                "寄件編號",
+                "蝦皮訂單編號",
+                "面單打印日期",
                 "姓名1",
                 "姓名2",
-                "待補充欄位1",
-                "待補充欄位2",
-                "待補充欄位3",
-                "待補充欄位N",
                 "回傳",
                 "取件門市",
                 "原始字串"));
@@ -191,22 +196,38 @@ namespace WindowsFormsApp18
                 var j = 65;
                 k++;
 
+                { Cell cell1 = sheet1.Cells[$"{(char)j++}{k}"]; cell1.PutValue(li.錯誤); }
                 { Cell cell1 = sheet1.Cells[$"{(char)j++}{k}"]; cell1.PutValue(li.檔案); }
                 { Cell cell1 = sheet1.Cells[$"{(char)j++}{k}"]; cell1.PutValue(li.頁數); }
+                { Cell cell1 = sheet1.Cells[$"{(char)j++}{k}"]; cell1.PutValue(li.第一段條碼); }
                 { Cell cell1 = sheet1.Cells[$"{(char)j++}{k}"]; cell1.PutValue(li.未命名編號); }
                 { Cell cell1 = sheet1.Cells[$"{(char)j++}{k}"]; cell1.PutValue(li.OK訂單編號); }
+                { Cell cell1 = sheet1.Cells[$"{(char)j++}{k}"]; cell1.PutValue(li.寄件編號); }
                 { Cell cell1 = sheet1.Cells[$"{(char)j++}{k}"]; cell1.PutValue(li.姓名); }
                 { Cell cell1 = sheet1.Cells[$"{(char)j++}{k}"]; cell1.PutValue(li.姓名2); }
                 { Cell cell1 = sheet1.Cells[$"{(char)j++}{k}"]; cell1.PutValue(li.取件門市); }
                 {
                     Cell cell1 = sheet1.Cells[$"{(char)j++}{k}"]; cell1.PutValue(li.回傳);
-                    if (li.回傳 == "已取貨")
+                    if (li.回傳 == "包裹疑似遺失")
                     {
                         Style style1 = cell1.GetStyle();
-                        style1.SetPatternColor(BackgroundType.Solid, Color.Orange, Color.Brown);
+                        style1.SetPatternColor(BackgroundType.Solid, Color.Red, Color.Red);
+                        cell1.SetStyle(style1);
+                    }
+                    else if (li.回傳 == "無")
+                    {
+                        Style style1 = cell1.GetStyle();
+                        style1.SetPatternColor(BackgroundType.Solid, Color.Orange, Color.Orange);
+                        cell1.SetStyle(style1);
+                    }
+                    else if (li.回傳 == "已離開寄件店")
+                    {
+                        Style style1 = cell1.GetStyle();
+                        style1.SetPatternColor(BackgroundType.Solid, Color.Orange, Color.Orange);
                         cell1.SetStyle(style1);
                     }
                 }
+                { Cell cell1 = sheet1.Cells[$"{(char)j++}{k}"]; cell1.PutValue(li.原始字串); }
 
             }
 
@@ -221,18 +242,87 @@ namespace WindowsFormsApp18
             Worksheet sheet2 = wb.Worksheets[1];
 
             var k2 = 0;
-            foreach (var li in groups)
-            {
-                var j = 65;
-                k2++;
-                if (li.Stuff == "回傳")
-                {
-                    continue;
-                }
-                { Cell cell1 = sheet2.Cells[$"{(char)j++}{k2}"]; cell1.PutValue(li.Stuff); }
-                { Cell cell1 = sheet2.Cells[$"{(char)j++}{k2}"]; cell1.PutValue(li.Count); }
+            // foreach (var li in groups)
+            // {
+            //     var j = 65;
+            //     k2++;
+            //     if (li.Stuff == "回傳")
+            //     {
+            //         continue;
+            //     }
+            //     { Cell cell1 = sheet2.Cells[$"{(char)j++}{k2}"]; cell1.PutValue(li.Stuff); }
+            //     { Cell cell1 = sheet2.Cells[$"{(char)j++}{k2}"]; cell1.PutValue(li.Count); }
+            //
+            // }
 
+
+
+            {
+                k2++;
+                var item = groups.Where(x => x.Stuff == "").FirstOrDefault();
+                { Cell cell1 = sheet2.Cells[$"A{k2}"]; cell1.PutValue("無"); }
+                { Cell cell1 = sheet2.Cells[$"B{k2}"]; cell1.PutValue(item == null ? 0 : item.Count); }
             }
+            {
+                k2++;
+                var str = "已離開寄件店";
+                var item = groups.Where(x => x.Stuff == str).FirstOrDefault();
+                { Cell cell1 = sheet2.Cells[$"A{k2}"]; cell1.PutValue(str); }
+                { Cell cell1 = sheet2.Cells[$"B{k2}"]; cell1.PutValue(item == null ? 0 : item.Count); }
+            }
+            {
+                k2++;
+                var str = "包裹疑似遺失";
+                var item = groups.Where(x => x.Stuff == str).FirstOrDefault();
+                { Cell cell1 = sheet2.Cells[$"A{k2}"]; cell1.PutValue(str); }
+                { Cell cell1 = sheet2.Cells[$"B{k2}"]; cell1.PutValue(item == null ? 0 : item.Count); }
+            }
+
+
+            k2++;
+            k2++;
+
+
+            {
+                k2++;
+                var str = "已於門市交寄";
+                var item = groups.Where(x => x.Stuff == str).FirstOrDefault();
+                { Cell cell1 = sheet2.Cells[$"A{k2}"]; cell1.PutValue(str); }
+                { Cell cell1 = sheet2.Cells[$"B{k2}"]; cell1.PutValue(item == null ? 0 : item.Count); }
+            }
+            {
+                k2++;
+                var str = "物流中心處理中";
+                var item = groups.Where(x => x.Stuff == str).FirstOrDefault();
+                { Cell cell1 = sheet2.Cells[$"A{k2}"]; cell1.PutValue(str); }
+                { Cell cell1 = sheet2.Cells[$"B{k2}"]; cell1.PutValue(item == null ? 0 : item.Count); }
+            }
+            {
+                k2++;
+                var str = "即將送達取件店";
+                var item = groups.Where(x => x.Stuff == str).FirstOrDefault();
+                { Cell cell1 = sheet2.Cells[$"A{k2}"]; cell1.PutValue(str); }
+                { Cell cell1 = sheet2.Cells[$"B{k2}"]; cell1.PutValue(item == null ? 0 : item.Count); }
+            }
+            {
+                k2++;
+                var str = "貨到取件門市";
+                var item = groups.Where(x => x.Stuff == str).FirstOrDefault();
+                { Cell cell1 = sheet2.Cells[$"A{k2}"]; cell1.PutValue(str); }
+                { Cell cell1 = sheet2.Cells[$"B{k2}"]; cell1.PutValue(item == null ? 0 : item.Count); }
+            }
+            {
+                k2++;
+                var str = "已取貨";
+                var item = groups.Where(x => x.Stuff == str).FirstOrDefault();
+                { Cell cell1 = sheet2.Cells[$"A{k2}"]; cell1.PutValue(str); }
+                { Cell cell1 = sheet2.Cells[$"B{k2}"]; cell1.PutValue(item == null ? 0 : item.Count); }
+            }
+
+
+
+
+
 
 
             // 將 Excel 另存為 .xlsx 文件。
@@ -257,14 +347,28 @@ namespace WindowsFormsApp18
             //迴圈頁數
             for (var i = 0; i < totalPages; i++)
             {
-                if(i > numericUpDown查前幾筆.Value)
+                //if(i > numericUpDown查前幾筆.Value)
+                //{
+                //    break ;
+                //}
+
+                if(numericUpDown查第幾頁.Value > 0 && i + 1 != numericUpDown查第幾頁.Value)
                 {
-                    break ;
+                    continue;
                 }
 
 
-                PdfPageBase page = loadedDocument.Pages[i];
-                var text = page.ExtractText(true);
+                var text = "";
+
+                try
+                {
+                    PdfPageBase page = loadedDocument.Pages[i];
+                    text = page.ExtractText(true);
+                }
+                catch
+                {
+
+                }
 
                 ///// File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $"\\HERE\\HERE{i + 1}.txt", text);
 
@@ -277,10 +381,54 @@ namespace WindowsFormsApp18
                     未命名編號 = matchOK未命名編號.Groups["未命名編號"].Value;
                 }
 
-
+                var 錯誤 = "Y";
                 var 回傳 = "";
                 var 取件門市 = "";
 
+
+
+                var match第一段條碼 = new Regex("\r\n(?<第一段條碼>\\d{9,9})\r\n").Match(text);
+                var 第一段條碼 = "";
+                if (match第一段條碼.Success)
+                {
+                    第一段條碼 = match第一段條碼.Groups["第一段條碼"].Value;
+                }
+
+
+                var match面單打印日期 = new Regex("\r\n(?<面單打印日期>202\\d-\\d\\d-\\d\\d \\d\\d:\\d\\d:\\d\\d)\r\n").Match(text);
+                var 面單打印日期 = "";
+                if (match面單打印日期.Success)
+                {
+                    面單打印日期 = match面單打印日期.Groups["面單打印日期"].Value;
+                }
+
+
+                var 寄件編號 = "";
+
+                {
+                    var match寄件編號 = new Regex("顧客繳款及門市寄件聯\r\n(?<寄件編號>.*)\r\n").Match(text);
+                    if (match寄件編號.Success)
+                    {
+                        寄件編號 = match寄件編號.Groups["寄件編號"].Value;
+                    }
+                }
+
+                if(寄件編號 == "")
+                {
+                    var match寄件編號 = new Regex("刷\r\n(?<寄件編號>TW.*)\r\n請").Match(text);
+                    if (match寄件編號.Success)
+                    {
+                        寄件編號 = match寄件編號.Groups["寄件編號"].Value;
+                    }
+                }
+
+
+                var match蝦皮訂單編號 = new Regex("\r\n(?<蝦皮訂單編號>.*)\r\n末").Match(text);
+                var 蝦皮訂單編號 = "";
+                if (match蝦皮訂單編號.Success)
+                {
+                    蝦皮訂單編號 = match蝦皮訂單編號.Groups["蝦皮訂單編號"].Value;
+                }
 
 
 
@@ -289,8 +437,11 @@ namespace WindowsFormsApp18
                 if (matchOK訂單編號.Success)
                 {
                     OK訂單編號 = matchOK訂單編號.Groups["OK訂單編號"].Value;
-
-                    if (cb1.Checked)
+                    if (!cb1.Checked)
+                    {
+                        錯誤 = "";
+                    }
+                    else
                     {
                         try
                         {
@@ -310,7 +461,7 @@ namespace WindowsFormsApp18
                                 回傳 = match回傳.Groups["回傳"].Value;
                                 if (回傳?.Length > 0)
                                 {
-                                    //錯誤X = "";
+                                    錯誤 = "";
                                 }
                             }
                             else if (回傳HTML.Contains("查無單號，請重新查詢"))
@@ -341,7 +492,6 @@ namespace WindowsFormsApp18
 
                     }
                 }
-
 
 
                 var match姓名 = new Regex("請\r\n至\r\nOK\r\n寄\r\n件\r\n(?<姓名>.*)\r\n物\r\n流\r\n").Match(text);
@@ -379,16 +529,17 @@ namespace WindowsFormsApp18
                 }
 
                 lists.Add( new Temp(
+                    錯誤,
                     sFile,
                     (i + 1).ToString(),
+                    $"{第一段條碼}",
                     $"{未命名編號}",
                     $"{OK訂單編號}",
+                    $"{寄件編號}",
+                    $"{蝦皮訂單編號}",
+                    $"{面單打印日期}",
                     姓名,
                     姓名2,
-                    "待補充欄位1",
-                    "待補充欄位2",
-                    "待補充欄位3",
-                    "待補充欄位N",
                     回傳,
                     取件門市,
                     text.Replace("\r\n","\\r\\n"))
@@ -400,8 +551,14 @@ namespace WindowsFormsApp18
                     _nEvery = "";
                 }
 
-
-                _nEvery = _nEvery + ">";
+                if(錯誤.Length > 0)
+                {
+                    _nEvery = _nEvery + "x";
+                }
+                else
+                {
+                    _nEvery = _nEvery + "o";
+                }
 
                 this.textBox_ProcessBar.Text = _nEvery;// new string('o', _nEvery % 50);
                 Application.DoEvents();
@@ -423,12 +580,6 @@ namespace WindowsFormsApp18
 
         private void button_Run_Click(object sender, EventArgs e)
         {
-            if(DateTime.Now > new DateTime(2023, 9, 25))
-            {
-                return;
-            }
-
-
             this.Enabled = false;
             Run();
             this.Enabled = true;
