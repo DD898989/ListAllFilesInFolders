@@ -409,6 +409,11 @@ namespace WindowsFormsApp18
                 {
                     第二段條碼 = matchOK第二段條碼.Groups["第二段條碼"].Value;
                 }
+                //else
+                //{
+                //    File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $"\\HERE\\HERE___{i}__{fileName_test.Name}.txt", text);
+                //    //throw new Exception("2024 0806 錯誤");
+                //}
 
                 var 錯誤 = "Y";
                 var 回傳 = "";
