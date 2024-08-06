@@ -177,9 +177,37 @@ namespace WindowsFormsApp18
                 "取件門市",
                 "原始字串"));
 
-            foreach (string path in this.listBox_SearchFolders.Items)
+            if(this.listBox_SearchFolders.Items.Count > 0)
             {
-                DirSearch(path,ref lists);
+                foreach (string path in this.listBox_SearchFolders.Items)
+                {
+                    DirSearch(path, ref lists);
+                }
+            }
+            else
+            {
+                foreach (string line in textBox1.Lines)
+                {
+                    (string 回傳, string 錯誤, string 取件門市) = Search(line);
+
+
+                    lists.Add(new Temp(
+                        錯誤,
+                        $"",
+                        $"",
+                        $"",
+                        $"",
+                        $"{line}",
+                        $"",
+                        $"",
+                        $"",
+                        "",
+                        "",
+                        回傳,
+                        取件門市,
+                        $""
+                        ));
+                }
             }
 
 
@@ -445,45 +473,7 @@ namespace WindowsFormsApp18
                     {
                         try
                         {
-                            var options = new RestClientOptions("https://ecservice.okmart.com.tw")
-                            {
-                                MaxTimeout = -1,
-                            };
-                            var client = new RestClient(options);
-                            var request = new RestRequest("/Tracking/Result?inputOdNo=" + OK訂單編號 + "&inputCode1=FN5O9", Method.Get);
-                            request.AddHeader("cookie", "_ga=GA1.3.1645060347.1692369316; _ga_1DPFC029V1=GS1.1.1692369316.1.0.1692369320.0.0.0; ValidateNumber=code=FN5O9&odno=" + OK訂單編號 + "&cutknm=&cutktl=");
-                            RestResponse response = client.ExecuteAsync(request).Result;
-                            var 回傳HTML = response.Content;
-
-                            var match回傳 = new Regex("<span class=\"status\">(?<回傳>.*)</span>").Match(回傳HTML);
-                            if (match回傳.Success)
-                            {
-                                回傳 = match回傳.Groups["回傳"].Value;
-                                if (回傳?.Length > 0)
-                                {
-                                    錯誤 = "";
-                                }
-                            }
-                            else if (回傳HTML.Contains("查無單號，請重新查詢"))
-                            {
-                            }
-                            else
-                            {
-                            }
-
-
-
-                            var match取件門市 = new Regex("<span class=\"stNm\">(?<取件門市>.*)</span>").Match(回傳HTML);
-                            if (match取件門市.Success)
-                            {
-                                取件門市 = match取件門市.Groups["取件門市"].Value;
-                            }
-
-
-                            System.Threading.Thread.Sleep(((int)this.numericUpDown1.Value)); //避免三方檔住惡意ip <h2>The request is blocked.</h2>
-                                                                                             //   <span class="status">已離開寄件店</span>
-
-
+                            (回傳,錯誤,取件門市) = Search(OK訂單編號);
                         }
                         catch (Exception ex)
                         {
@@ -571,6 +561,59 @@ namespace WindowsFormsApp18
 
 
 
+        }
+
+
+        (string, string, string) Search(string OK訂單編號) 
+        {
+
+            var 錯誤 = "Y";
+            var 回傳 = "";
+            var 取件門市 = "";
+
+            var options = new RestClientOptions("https://ecservice.okmart.com.tw")
+            {
+                MaxTimeout = -1,
+            };
+            var client = new RestClient(options);
+            var request = new RestRequest("/Tracking/Result?inputOdNo=" + OK訂單編號 + "&inputCode1=FN5O9", Method.Get);
+            request.AddHeader("cookie", "_ga=GA1.3.1645060347.1692369316; _ga_1DPFC029V1=GS1.1.1692369316.1.0.1692369320.0.0.0; ValidateNumber=code=FN5O9&odno=" + OK訂單編號 + "&cutknm=&cutktl=");
+            var response = client.ExecuteAsync(request).Result;
+            var 回傳HTML = response.Content;
+
+            var match回傳 = new Regex("<span class=\"status\">(?<回傳>.*)</span>").Match(回傳HTML);
+            if (match回傳.Success)
+            {
+                //////////////////////////////
+                回傳 = match回傳.Groups["回傳"].Value;
+                if (回傳?.Length > 0)
+                {
+                    //////////////////////////////
+                    錯誤 = "";
+                }
+            }
+            else if (回傳HTML.Contains("查無單號，請重新查詢"))
+            {
+            }
+            else
+            {
+            }
+
+
+
+            var match取件門市 = new Regex("<span class=\"stNm\">(?<取件門市>.*)</span>").Match(回傳HTML);
+            if (match取件門市.Success)
+            {
+                //////////////////////////////
+                取件門市 = match取件門市.Groups["取件門市"].Value;
+            }
+
+
+            System.Threading.Thread.Sleep(((int)this.numericUpDown1.Value)); //避免三方檔住惡意ip <h2>The request is blocked.</h2>
+                                                                             //   <span class="status">已離開寄件店</span>
+
+
+            return (回傳, 錯誤, 取件門市); 
         }
 
         private void Form1_Load(object sender, EventArgs e)

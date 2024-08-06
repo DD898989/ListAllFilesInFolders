@@ -34,7 +34,6 @@
             this.listBox_SearchFolders = new System.Windows.Forms.ListBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.button_SelectFolder = new System.Windows.Forms.Button();
             this.textBox_OutputFileName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -45,10 +44,13 @@
             this.label5 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.cb1 = new System.Windows.Forms.CheckBox();
-            this.numericUpDown查前幾筆 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown查第幾頁 = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown查前幾筆)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown查第幾頁)).BeginInit();
             this.SuspendLayout();
             // 
             // button_Remove
@@ -77,9 +79,9 @@
             this.listBox_SearchFolders.FormattingEnabled = true;
             this.listBox_SearchFolders.HorizontalScrollbar = true;
             this.listBox_SearchFolders.ItemHeight = 12;
-            this.listBox_SearchFolders.Location = new System.Drawing.Point(25, 106);
+            this.listBox_SearchFolders.Location = new System.Drawing.Point(192, 106);
             this.listBox_SearchFolders.Name = "listBox_SearchFolders";
-            this.listBox_SearchFolders.Size = new System.Drawing.Size(296, 100);
+            this.listBox_SearchFolders.Size = new System.Drawing.Size(129, 100);
             this.listBox_SearchFolders.TabIndex = 21;
             this.listBox_SearchFolders.DragDrop += new System.Windows.Forms.DragEventHandler(this.listBox1_DragDrop);
             this.listBox_SearchFolders.DragEnter += new System.Windows.Forms.DragEventHandler(this.listBox1_DragEnter);
@@ -87,7 +89,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(23, 91);
+            this.label4.Location = new System.Drawing.Point(235, 91);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(53, 12);
             this.label4.TabIndex = 20;
@@ -101,16 +103,6 @@
             this.label3.Size = new System.Drawing.Size(8, 12);
             this.label3.TabIndex = 19;
             this.label3.Text = "\\";
-            // 
-            // button_SelectFolder
-            // 
-            this.button_SelectFolder.Location = new System.Drawing.Point(143, 66);
-            this.button_SelectFolder.Name = "button_SelectFolder";
-            this.button_SelectFolder.Size = new System.Drawing.Size(75, 23);
-            this.button_SelectFolder.TabIndex = 18;
-            this.button_SelectFolder.Text = "選擇資料夾";
-            this.button_SelectFolder.UseVisualStyleBackColor = true;
-            this.button_SelectFolder.Click += new System.EventHandler(this.button_SelectFolder_Click);
             // 
             // textBox_OutputFileName
             // 
@@ -201,8 +193,6 @@
             // cb1
             // 
             this.cb1.AutoSize = true;
-            this.cb1.Checked = true;
-            this.cb1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cb1.Location = new System.Drawing.Point(333, 36);
             this.cb1.Name = "cb1";
             this.cb1.Size = new System.Drawing.Size(72, 16);
@@ -210,44 +200,63 @@
             this.cb1.Text = "連網查詢";
             this.cb1.UseVisualStyleBackColor = true;
             // 
-            // numericUpDown查前幾筆
+            // numericUpDown查第幾頁
             // 
-            this.numericUpDown查前幾筆.Location = new System.Drawing.Point(333, 128);
-            this.numericUpDown查前幾筆.Maximum = new decimal(new int[] {
+            this.numericUpDown查第幾頁.Location = new System.Drawing.Point(333, 128);
+            this.numericUpDown查第幾頁.Maximum = new decimal(new int[] {
             99999,
             0,
             0,
             0});
-            this.numericUpDown查前幾筆.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown查前幾筆.Name = "numericUpDown查前幾筆";
-            this.numericUpDown查前幾筆.Size = new System.Drawing.Size(75, 22);
-            this.numericUpDown查前幾筆.TabIndex = 27;
-            this.numericUpDown查前幾筆.Value = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
+            this.numericUpDown查第幾頁.Name = "numericUpDown查第幾頁";
+            this.numericUpDown查第幾頁.Size = new System.Drawing.Size(75, 22);
+            this.numericUpDown查第幾頁.TabIndex = 27;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(331, 113);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(93, 12);
+            this.label6.Size = new System.Drawing.Size(53, 12);
             this.label6.TabIndex = 28;
-            this.label6.Text = "查前N頁(測試用)";
+            this.label6.Text = "單頁查詢";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(51, 91);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(65, 12);
+            this.label7.TabIndex = 29;
+            this.label7.Text = "輸入條碼列";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(167, 91);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(17, 12);
+            this.label8.TabIndex = 30;
+            this.label8.Text = "或";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(25, 107);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(119, 100);
+            this.textBox1.TabIndex = 31;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(420, 258);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.numericUpDown查前幾筆);
+            this.Controls.Add(this.numericUpDown查第幾頁);
             this.Controls.Add(this.cb1);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.label5);
@@ -256,7 +265,6 @@
             this.Controls.Add(this.listBox_SearchFolders);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.button_SelectFolder);
             this.Controls.Add(this.textBox_OutputFileName);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -267,7 +275,7 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown查前幾筆)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown查第幾頁)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -280,7 +288,6 @@
         private System.Windows.Forms.ListBox listBox_SearchFolders;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button_SelectFolder;
         private System.Windows.Forms.TextBox textBox_OutputFileName;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
@@ -291,8 +298,11 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.CheckBox cb1;
-        private System.Windows.Forms.NumericUpDown numericUpDown查前幾筆;
+        private System.Windows.Forms.NumericUpDown numericUpDown查第幾頁;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
