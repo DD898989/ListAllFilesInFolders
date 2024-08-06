@@ -92,7 +92,7 @@ namespace WindowsFormsApp18
                 string 檔案,
                 string 頁數,
                 string 第一段條碼,
-                string 未命名編號,
+                string 第二段條碼,
                 string OK訂單編號,
                 string 寄件編號,
                 string 蝦皮訂單編號,
@@ -111,7 +111,7 @@ namespace WindowsFormsApp18
                 this.檔案 = 檔案;
                 this.頁數  = 頁數;
                 this.第一段條碼 = 第一段條碼;
-                this.未命名編號  = 未命名編號;
+                this.第二段條碼  = 第二段條碼;
                 this.OK訂單編號 = OK訂單編號;
                 this.寄件編號 = 寄件編號;
                 this.蝦皮訂單編號 = 蝦皮訂單編號;
@@ -130,7 +130,7 @@ namespace WindowsFormsApp18
             public string 檔案 { get; set; }
             public string 頁數 { get; set; }
             public string 第一段條碼 { get; set; }
-            public string 未命名編號 { get; set; }
+            public string 第二段條碼 { get; set; }
             public string OK訂單編號 { get; set; }
             public string 寄件編號 { get; set; }
             public string 蝦皮訂單編號 { get; set; }
@@ -228,7 +228,7 @@ namespace WindowsFormsApp18
                 { Cell cell1 = sheet1.Cells[$"{(char)j++}{k}"]; cell1.PutValue(li.檔案); }
                 { Cell cell1 = sheet1.Cells[$"{(char)j++}{k}"]; cell1.PutValue(li.頁數); }
                 { Cell cell1 = sheet1.Cells[$"{(char)j++}{k}"]; cell1.PutValue(li.第一段條碼); }
-                { Cell cell1 = sheet1.Cells[$"{(char)j++}{k}"]; cell1.PutValue(li.未命名編號); }
+                { Cell cell1 = sheet1.Cells[$"{(char)j++}{k}"]; cell1.PutValue(li.第二段條碼); }
                 { Cell cell1 = sheet1.Cells[$"{(char)j++}{k}"]; cell1.PutValue(li.OK訂單編號); }
                 { Cell cell1 = sheet1.Cells[$"{(char)j++}{k}"]; cell1.PutValue(li.寄件編號); }
                 { Cell cell1 = sheet1.Cells[$"{(char)j++}{k}"]; cell1.PutValue(li.姓名); }
@@ -401,12 +401,12 @@ namespace WindowsFormsApp18
                 ///// File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $"\\HERE\\HERE{i + 1}.txt", text);
 
 
-                var matchOK未命名編號 = new Regex("OK 寄件\r\n(\r\n)?.+\r\n?(?<未命名編號>.*)\r\n202\\d-\\d\\d-\\d\\d").Match(text);
+                var matchOK第二段條碼 = new Regex("OK 寄件\r\n(\r\n)?.+\r\n?(?<第二段條碼>.*)\r\n202\\d-\\d\\d-\\d\\d").Match(text);
                 //                                            (\r\n)? 表示不一定會有 第三頁沒有
-                var 未命名編號 = "";
-                if (matchOK未命名編號.Success)
+                var 第二段條碼 = "";
+                if (matchOK第二段條碼.Success)
                 {
-                    未命名編號 = matchOK未命名編號.Groups["未命名編號"].Value;
+                    第二段條碼 = matchOK第二段條碼.Groups["第二段條碼"].Value;
                 }
 
                 var 錯誤 = "Y";
@@ -523,7 +523,7 @@ namespace WindowsFormsApp18
                     sFile,
                     (i + 1).ToString(),
                     $"{第一段條碼}",
-                    $"{未命名編號}",
+                    $"{第二段條碼}",
                     $"{OK訂單編號}",
                     $"{寄件編號}",
                     $"{蝦皮訂單編號}",
