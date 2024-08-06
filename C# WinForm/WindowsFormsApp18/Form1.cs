@@ -368,6 +368,7 @@ namespace WindowsFormsApp18
         void DirSearch(string sFile, ref List<Temp> lists)
         {
             var fileInfo = new FileStream(sFile,FileMode.Open);
+            var fileName_test = new FileInfo(sFile);
             PdfLoadedDocument loadedDocument = new PdfLoadedDocument(fileInfo);
 
             var totalPages = loadedDocument.Pages.Count;
@@ -398,7 +399,7 @@ namespace WindowsFormsApp18
 
                 }
 
-                ///// File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $"\\HERE\\HERE{i + 1}.txt", text);
+                //File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $"\\HERE\\HERE___{i}__{fileName_test.Name}.txt", text);
 
 
                 var matchOK第二段條碼 = new Regex("OK 寄件\r\n(\r\n)?.+\r\n?(?<第二段條碼>.*)\r\n202\\d-\\d\\d-\\d\\d").Match(text);
