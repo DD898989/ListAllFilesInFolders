@@ -82,6 +82,13 @@ namespace WindowsFormsApp18
             //this.listBox_SearchFolders.Items.Add("C:\\Users\\DaveVivo\\Desktop\\案子\\9-17 東280.pdf");
             //this.listBox_SearchFolders.Items.Add("C:\\Users\\DaveVivo\\Desktop\\案子\\19號出貨OK預刷-鵬興595票.pdf");
             //this.listBox_SearchFolders.Items.Add("D:\\");
+
+            //if(DateTime.Now > new DateTime(2024, 8, 18))
+            //{
+            //    MessageBox.Show("過期");
+            //    this.Close();
+            //}
+
         }
 
 
@@ -402,7 +409,7 @@ namespace WindowsFormsApp18
                 //File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $"\\HERE\\HERE___{i}__{fileName_test.Name}.txt", text);
 
 
-                var matchOK第二段條碼 = new Regex("OK 寄件\r\n(\r\n)?.+\r\n?(?<第二段條碼>.*)\r\n202\\d-\\d\\d-\\d\\d").Match(text);
+                var matchOK第二段條碼 = new Regex(/*                */"\r\n?(?<第二段條碼>\\d{16})\r\n202\\d-\\d\\d-\\d\\d").Match(text);
                 //                                            (\r\n)? 表示不一定會有 第三頁沒有
                 var 第二段條碼 = "";
                 if (matchOK第二段條碼.Success)
