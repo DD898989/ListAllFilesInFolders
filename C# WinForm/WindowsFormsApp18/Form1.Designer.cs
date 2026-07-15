@@ -51,6 +51,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
@@ -151,14 +153,14 @@
             // textBox_ProcessBar
             // 
             this.textBox_ProcessBar.Enabled = false;
-            this.textBox_ProcessBar.Location = new System.Drawing.Point(131, 297);
+            this.textBox_ProcessBar.Location = new System.Drawing.Point(131, 311);
             this.textBox_ProcessBar.Name = "textBox_ProcessBar";
             this.textBox_ProcessBar.Size = new System.Drawing.Size(317, 22);
             this.textBox_ProcessBar.TabIndex = 13;
             // 
             // button_Run
             // 
-            this.button_Run.Location = new System.Drawing.Point(45, 297);
+            this.button_Run.Location = new System.Drawing.Point(36, 311);
             this.button_Run.Name = "button_Run";
             this.button_Run.Size = new System.Drawing.Size(75, 23);
             this.button_Run.TabIndex = 12;
@@ -242,11 +244,29 @@
             this.textBox2.Size = new System.Drawing.Size(84, 22);
             this.textBox2.TabIndex = 31;
             // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(36, 283);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(84, 22);
+            this.textBox3.TabIndex = 33;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(129, 293);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(120, 12);
+            this.label9.TabIndex = 34;
+            this.label9.Text = "folder name not contains";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(583, 346);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.textBox3);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label7);
@@ -302,6 +322,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label9;
     }
 }
 

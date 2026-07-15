@@ -19,6 +19,7 @@ namespace WindowsFormsApp18
         int _nMaxFileSizeMB;
         string _sContainsFileName;
         string _sContainsFolderName;
+        string _sNotContainsFolderName;
         DateTime _startTime;
         DateTime _endTime;
 
@@ -112,6 +113,17 @@ namespace WindowsFormsApp18
                 return;
             }
 
+            if (_sNotContainsFolderName?.Length > 0 &&
+                sDir.ToLower().Contains(_sNotContainsFolderName.ToLower())
+                )
+            {
+                Console.WriteLine("");
+                return;
+            }
+            else
+            {
+            }
+
             if (sDir.Length < 15 || !this.checkBox1.Checked)
             {
                 sDirCode = sDir.ToString();
@@ -156,8 +168,6 @@ namespace WindowsFormsApp18
                 sizeMB = f.Length / 1024 / 1024;
 
                 if (
-                sizeMB >= _nMaxFileSizeMB
-                &&
                 f.LastWriteTime >= this._startTime
                 &&
                 f.LastWriteTime <= this._endTime
@@ -168,14 +178,17 @@ namespace WindowsFormsApp18
                     )
                 {
                     bPrintDir = true;
-                    ListAdd(
-                            sDirCode,
-                            "f",
-                            Path.GetFileName(f.ToString())/*FileInfo only contains full path file*/,
-                            f.LastWriteTime.ToString("yyyy/MM/dd HH:mm:ss"),
-                            f.CreationTime.ToString("yyyy/MM/dd HH:mm:ss"),
-                            sizeMB > 0 ? sizeMB.ToString() : (((double)f.Length) / 1024 / 1024).ToString()
-                        );
+                    if (sizeMB >= _nMaxFileSizeMB)
+                    {
+                        ListAdd(
+                                sDirCode,
+                                "f",
+                                Path.GetFileName(f.ToString())/*FileInfo only contains full path file*/,
+                                f.LastWriteTime.ToString("yyyy/MM/dd HH:mm:ss"),
+                                f.CreationTime.ToString("yyyy/MM/dd HH:mm:ss"),
+                                sizeMB > 0 ? sizeMB.ToString() : (((double)f.Length) / 1024 / 1024).ToString()
+                            );
+                    }
                 }
 
                 _nEvery++;
@@ -195,7 +208,9 @@ namespace WindowsFormsApp18
                 bPrintDir
                 )
             {
-                ListAdd(
+                if (sizeMB >= _nMaxFileSizeMB)
+                {
+                    ListAdd(
                     sDir,
                     "D",
                     sDirCode,
@@ -203,6 +218,7 @@ namespace WindowsFormsApp18
                     dir.CreationTime.ToString("yyyy/MM/dd HH:mm:ss"),
                     sizeMB.ToString()
                     );
+                }
             }
         }
 
@@ -217,6 +233,7 @@ namespace WindowsFormsApp18
             this._nMaxFileSizeMB = (int)this.numericUpDown1.Value;
             this._sContainsFileName = this.textBox1.Text;
             this._sContainsFolderName = this.textBox2.Text;
+            this._sNotContainsFolderName = this.textBox3.Text;
             if (this.numericUpDown2.Value != 0)
             {
                 this._startTime = DateTime.Now - TimeSpan.FromSeconds((double)this.numericUpDown2.Value);
