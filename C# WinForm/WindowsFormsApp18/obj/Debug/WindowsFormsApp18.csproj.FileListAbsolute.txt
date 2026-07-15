@@ -1,0 +1,9 @@
+C:\Users\DaveVivo\Documents\GitHub\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\obj\Debug\WindowsFormsApp18.csprojResolveAssemblyReference.cache
+C:\Users\DaveVivo\Documents\GitHub\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\obj\Debug\WindowsFormsApp18.Form1.resources
+C:\Users\DaveVivo\Documents\GitHub\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\obj\Debug\WindowsFormsApp18.Properties.Resources.resources
+C:\Users\DaveVivo\Documents\GitHub\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\obj\Debug\WindowsFormsApp18.csproj.GenerateResource.Cache
+C:\Users\DaveVivo\Documents\GitHub\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\bin\Debug\WindowsFormsApp18.exe.config
+C:\Users\DaveVivo\Documents\GitHub\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\bin\Debug\WindowsFormsApp18.exe
+C:\Users\DaveVivo\Documents\GitHub\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\bin\Debug\WindowsFormsApp18.pdb
+C:\Users\DaveVivo\Documents\GitHub\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\obj\Debug\WindowsFormsApp18.exe
+C:\Users\DaveVivo\Documents\GitHub\ListAllFilesInFolders\C# WinForm\WindowsFormsApp18\obj\Debug\WindowsFormsApp18.pdb
