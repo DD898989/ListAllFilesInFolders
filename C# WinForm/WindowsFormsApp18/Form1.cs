@@ -91,11 +91,47 @@ namespace WindowsFormsApp18
                 _nSize = 0;
                 DirSearch(path);
             }
-            writeFile();
+            SortAndWriteFile();
 
             watch.Stop();
             Console.WriteLine(watch.ElapsedMilliseconds / 1000);
             this.textBox_ProcessBar.Text = "done";
+        }
+
+        void SortAndWriteFile()
+        {
+            if (_listString.Count <= 1)
+            {
+                writeFile();
+                return;
+            }
+
+            // The first item is the header
+            string header = _listString[0];
+            
+            // The rest of the items are the data lines
+            var dataLines = _listString.Skip(1).ToList();
+
+            // Sort the data lines by the size column (index 5) in descending order
+            var sortedDataLines = dataLines.OrderByDescending(line => {
+                string[] parts = line.Split('\t');
+                if (parts.Length > 5)
+                {
+                    double size;
+                    if (double.TryParse(parts[5], out size))
+                    {
+                        return size;
+                    }
+                }
+                return 0.0;
+            }).ToList();
+
+            // Rebuild _listString with the header first, then the sorted lines
+            _listString.Clear();
+            _listString.Add(header);
+            _listString.AddRange(sortedDataLines);
+
+            writeFile();
         }
 
         void writeFile()
@@ -214,8 +250,6 @@ namespace WindowsFormsApp18
                 {
                     this.textBox_ProcessBar.Text = new string('*', (_nEvery / 500) % 50); //user experience
                     Application.DoEvents();
-                    if (_nEvery % 50000 == 0)
-                        writeFile();
                 }
 
             }
