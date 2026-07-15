@@ -30,6 +30,23 @@ namespace WindowsFormsApp18
             this.textBox_OutputFileName.Text = "AllFile.csv";
             this.listBox_SearchFolders.Items.Add("C:\\");
             this.listBox_SearchFolders.Items.Add("D:\\");
+
+            // Recursively enable Drag and Drop on the Form and all its child controls
+            EnableDragDropRecursively(this);
+        }
+
+        private void EnableDragDropRecursively(Control control)
+        {
+            if (control != this.listBox_SearchFolders)
+            {
+                control.AllowDrop = true;
+                control.DragEnter += new DragEventHandler(listBox1_DragEnter);
+                control.DragDrop += new DragEventHandler(listBox1_DragDrop);
+            }
+            foreach (Control child in control.Controls)
+            {
+                EnableDragDropRecursively(child);
+            }
         }
 
         void ListAdd(
@@ -113,7 +130,7 @@ namespace WindowsFormsApp18
                 return;
             }
 
-            if (_sNotContainsFolderName?.Length > 0 &&
+            if (!string.IsNullOrEmpty(_sNotContainsFolderName) &&
                 sDir.ToLower().Contains(_sNotContainsFolderName.ToLower())
                 )
             {
@@ -279,7 +296,10 @@ namespace WindowsFormsApp18
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
             foreach (string fileName in files)
             {
-                listBox_SearchFolders.Items.Add(fileName);
+                if (Directory.Exists(fileName))
+                {
+                    listBox_SearchFolders.Items.Add(fileName);
+                }
             }
         }
 
